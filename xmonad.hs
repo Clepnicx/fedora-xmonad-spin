@@ -21,10 +21,13 @@ main = do
         -- hooks, layouts
         layoutHook         = myLayoutHook, 
         logHook            = myLogHook xmproc 
-    }
+    } 
+    `additionalKeys` myKeys
+
 
 -- User variables
 myTerminal           = "kitty"
+myFileBrowser        = "dolphin"
 myModKey             = mod4Mask    -- set Win-Key as ModKey
 myFocusFollowsMouse  = True
 myBorderWidth        = 2
@@ -37,7 +40,7 @@ myWorkSpaces  = ["1:kitty", "2:www", "3:files", "4", "5", "6", "7", "8", "9:misc
 -- Hooks, Layouts
 {-- TODO: 
     - Check für doppelt belegte Tastenkombinationen hinzufügen
-    - Space zwischen Fenstern und Bar hinzufügen
+    - Spaceing zwischen Fenstern und Bar hinzufügen
 --} 
 myLayoutHook  = avoidStruts  $  layoutHook defaultConfig
 myLogHook b   = dynamicLogWithPP xmobarPP { 
@@ -46,4 +49,9 @@ myLogHook b   = dynamicLogWithPP xmobarPP {
 }
 
 -- Key bindings
-
+myKeys :: [((ButtonMask, KeySym), (X ()))]
+myKeys = [
+    ((mod4Mask, xK_w), spawn "firefox"), 
+    ((mod4Mask, xK_d), spawn "rofi"), 
+    ((mod4Mask, xK_n), spawn myFileBrowser)
+]

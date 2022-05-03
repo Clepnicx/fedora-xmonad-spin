@@ -21,8 +21,7 @@ main = do
         -- hooks, layouts
         layoutHook         = myLayoutHook, 
         logHook            = myLogHook xmproc 
-    } 
-    `additionalKeys` myKeys
+    } `additionalKeys` myKeys
 
 
 -- User variables
@@ -54,4 +53,4 @@ myKeys = [
     ((mod4Mask, xK_w), spawn "firefox"), 
     ((mod4Mask, xK_d), spawn "rofi"), 
     ((mod4Mask, xK_n), spawn myFileBrowser)
-]
+    ]

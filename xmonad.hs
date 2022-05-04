@@ -41,7 +41,7 @@ myWorkSpaces  = ["1:kitty", "2:www", "3:files", "4", "5", "6", "7", "8", "9:misc
     - Check für doppelt belegte Tastenkombinationen hinzufügen
     - Spaceing zwischen Fenstern und Bar hinzufügen
 --} 
-myLayoutHook  = avoidStruts  $  layoutHook defaultConfig
+myLayoutHook  = avoidStruts  $  layoutHook defaultConfig . spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True $ Tall (1 (3/100) (1/2)) ||| Full
 myLogHook b   = dynamicLogWithPP xmobarPP { 
     ppOutput = hPutStrLn b, 
     ppTitle = xmobarColor "green" "" . shorten 50
@@ -51,6 +51,6 @@ myLogHook b   = dynamicLogWithPP xmobarPP {
 myKeys :: [((ButtonMask, KeySym), (X ()))]
 myKeys = [
     ((mod4Mask, xK_w), spawn "firefox"), 
-    ((mod4Mask, xK_d), spawn "rofi"), 
+    ((mod4Mask, xK_d), spawn "rofi -modi drun,combi,window,ssh -font 'hack 10' -show combi"), 
     ((mod4Mask, xK_n), spawn myFileBrowser)
     ]

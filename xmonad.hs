@@ -1,6 +1,8 @@
 import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
+import XMonad.Hooks.EwmhDesktops
+import XMonad.Layout.Spacing
 import XMonad.Util.Run
 import XMonad.Util.EZConfig
 import System.IO
@@ -9,7 +11,7 @@ import System.IO
 main :: IO ()
 main = do
     xmproc <- spawnPipe "xmobar"
-    xmonad $ docks defaultConfig {
+    xmonad . ewmh . docks $ defaultConfig {
         terminal           = myTerminal,
         modMask            = myModKey, 
         borderWidth        = myBorderWidth, 
@@ -19,38 +21,39 @@ main = do
         workspaces         = myWorkSpaces, 
 
         -- hooks, layouts
+        startupHook        = myStartupHook, 
         layoutHook         = myLayoutHook, 
         logHook            = myLogHook xmproc 
     } `additionalKeys` myKeys
 
 
--- User variables
+
 myTerminal           = "kitty"
 myFileBrowser        = "dolphin"
 myModKey             = mod4Mask    -- set Win-Key as ModKey
 myFocusFollowsMouse  = True
 myBorderWidth        = 2
-myNormalBorderColor  = "#8a2be2"
-myFocusedBorderColor = "#fa7610"
+myNormalBorderColor  = "#073dc1"
+myFocusedBorderColor = "#ffffff"
 
 -- Workspaces
 myWorkSpaces  = ["1:kitty", "2:www", "3:files", "4", "5", "6", "7", "8", "9:misc"] 
 
 -- Hooks, Layouts
-{-- TODO: 
-    - Check für doppelt belegte Tastenkombinationen hinzufügen
-    - Spaceing zwischen Fenstern und Bar hinzufügen
---} 
-myLayoutHook  = avoidStruts  $  layoutHook defaultConfig . spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True $ Tall (1 (3/100) (1/2)) ||| Full
+myStartupHook = do
+    spawn "picom -b"
+    spawn "feh --bg-fill --no-fehbg ~/fedora-xmonad-build/wallpaper.png"
+
+myLayoutHook  = avoidStruts  $  spacing 3 $ Tall 1 (3/100) (1/2)
+
 myLogHook b   = dynamicLogWithPP xmobarPP { 
-    ppOutput = hPutStrLn b, 
-    ppTitle = xmobarColor "green" "" . shorten 50
+    ppOutput = hPutStrLn b
 }
 
 -- Key bindings
 myKeys :: [((ButtonMask, KeySym), (X ()))]
 myKeys = [
     ((mod4Mask, xK_w), spawn "firefox"), 
-    ((mod4Mask, xK_d), spawn "rofi -modi drun,combi,window,ssh -font 'hack 10' -show combi"), 
+    ((mod4Mask, xK_d), spawn "rofi -show drun -font 'hack 10'"), 
     ((mod4Mask, xK_n), spawn myFileBrowser)
     ]

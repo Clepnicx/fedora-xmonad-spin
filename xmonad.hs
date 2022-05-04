@@ -46,9 +46,8 @@ myStartupHook = do
 
 myLayoutHook  = avoidStruts  $  spacing 3 $ Tall 1 (3/100) (1/2)
 
-myLogHook b   = dynamicLogWithPP xmobarPP { 
-    ppOutput = hPutStrLn b, 
-    ppTitle = xmobarColor "green" "" . shorten 50
+myLogHook b   = dynamicLogWithPP $ xmobarPP { 
+    ppOutput = hPutStrLn b
 }
 
 -- Key bindings

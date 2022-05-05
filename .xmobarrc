@@ -1,6 +1,9 @@
 Config {
     -- appearance
-     font = "xtf:Hack:size=8:antialias:true"
+     font = "xtf:Font Awesome 5 Free Solid:style=Solid:size=10
+     , Font Awesome 5 Brands Regular:style=Regular:size=10
+     , Font Awesome 5 Free Regular:style=Regular:size=10
+     , Hack:size=8:antialias:true"
     , bgColor = "black"
     , fgColor = "grey"
     , border = BottomB
@@ -20,8 +23,9 @@ Config {
                  , Run Swap [] 10
                  , Run Com "uname" ["-s","-r"] "" 36000
                  , Run Date "%a %b %_d %Y %H:%M:%S" "date" 10
+                 , Run StdinReader
                  ]
     , sepChar = "%"
     , alignSep = "}{"
-    , template = "}{%cpu% | %memory% | %eth0% - %eth1% | <fc=#ee9a00>%date%</fc>"
+    , template = "%StdinReader%}{%cpu% | %memory% | %eth0% - %eth1% | <fc=#ee9a00>%date%</fc>"
     }

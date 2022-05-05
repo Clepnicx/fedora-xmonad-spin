@@ -37,7 +37,7 @@ myNormalBorderColor  = "#073dc1"
 myFocusedBorderColor = "#ffffff"
 
 -- Workspaces
-myWorkSpaces  = ["1:kitty", "2:www", "3:files", "4", "5", "6", "7", "8", "9:misc"] 
+myWorkSpaces  = ["1: \61728", "2: \57351", "3: \61564", "4", "5", "6", "7", "8", "9:misc"] 
 
 -- Hooks, Layouts
 myStartupHook = do
@@ -47,6 +47,11 @@ myStartupHook = do
 myLayoutHook  = avoidStruts  $  spacing 3 $ Tall 1 (3/100) (1/2)
 
 myLogHook b   = dynamicLogWithPP $ xmobarPP { 
+    ppWsSep = " | ", 
+    ppLayout = \(xs) -> [],    --  hide layout name format
+    ppVisible = wrap "(" ")", 
+    ppCurrent = wrap "<fc=#ee9a00>" "</fc>", 
+    ppTitleSanitize = \(xs) -> xs, 
     ppOutput = hPutStrLn b
 }
 

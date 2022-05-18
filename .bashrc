@@ -6,12 +6,11 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
 
 ############################
 ## EXPORTS                ##
 ############################
-
+            
 
 ###################################################################################################################
 ## COMMAND PROMPT                                                                                                ##
@@ -49,7 +48,6 @@ command_prompt () {
     local DARKORANGE="\033[38;5;208m"
     local NOCOLOR="\033[0m"
 
-
     ##
     ## DEFINE PROMPT VARIABLES
     ##
@@ -58,12 +56,13 @@ command_prompt () {
     local TIME="$(date +'%-I':%M:%S%P)"
     local CPU="$(cpu)%"
     local JOBS="\j"
+    local ICON="λ"
 
-    ## Display a colored symbol if the exitcode is 0, else display a red symbol
+    ## Display a happy smiley if the exitcode is 0, else display a shocked smiley
     if [[ $LAST_COMMAND != 0 ]]; then
-        local SYMBOL="\[${RED}\]D:"
+        local SYMBOL="\[${RED}\]\[${ICON}\]"
     else
-        local SYMBOL="\[${SALMON}\](:"
+        local SYMBOL="\[${GREEN}\]\[${ICON}\]"
     fi
 
     ##
@@ -73,11 +72,11 @@ command_prompt () {
     ### First line of the prompt
 
     ## Right side of the prompt
-    # Status of the exitcode (Smiley) + Day + Time
+    # Status of the exitcode (Symbol) + Day + Time
     local RIGHT_SIDE="\[${LIGHTGRAY}\](${SYMBOL}\[${LIGHTGRAY}\])-(\[${BLUE}\]${DAY} ${DATE} \[${PURPLE}\]${TIME}\[${LIGHTGRAY}\])"
 
     # Save curser position, move curser to the right side, print Right_Side and restore curser position.
-    PS1+="\[$(tput sc; printf "%*s" $(($COLUMNS+92)) "${RIGHT_SIDE}"; tput rc)\]"
+    PS1="\[$(tput sc; printf "%*s" $(($COLUMNS+97)) "${RIGHT_SIDE}"; tput rc)\]"
 
     ## Left side of the prompt
     # User + Hostname

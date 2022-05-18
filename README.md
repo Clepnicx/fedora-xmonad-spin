@@ -1,1 +1,1 @@
-# fedora-xmonad-build
+# fedora-xmonad-spin

@@ -6,7 +6,7 @@ cd ~
 sudo dnf update
 
 # install all required packages for xmonad and basic usability
-sudo dnf install xmonad xmonad-config xmobar picom redhat-rpm-config sddm fontawesome5-fonts-all feh rofi arandr ark okular dolphin ranger firefox kitty micro neofetch
+sudo dnf install xmonad xmonad-config xmobar picom redhat-rpm-config sddm fontawesome5-fonts-all feh rofi arandr ark okular dolphin ranger firefox kitty micro kvantum neofetch
 
 # enable sddm
 sudo systemctl enable sddm.service

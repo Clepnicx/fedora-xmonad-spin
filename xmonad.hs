@@ -1,11 +1,11 @@
 import XMonad
+import System.IO
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.Spacing
 import XMonad.Util.Run
 import XMonad.Util.EZConfig
-import System.IO
 import XMonad.Util.Cursor
 
 -- Xmonad Main

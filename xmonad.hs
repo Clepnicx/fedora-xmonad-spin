@@ -48,15 +48,15 @@ myLayoutHook  = avoidStruts  $  spacing 3 $ Tall 1 (3/100) (1/2)
 
 myLogHook b   = dynamicLogWithPP $ xmobarPP { 
     ppWsSep = " | ", 
-    ppLayout = \(xs) -> [],    --  hide layout name format
+    ppLayout = \xs -> [],    --  hide layout name format
     ppVisible = wrap "(" ")", 
     ppCurrent = wrap "<fc=#ee9a00>" "</fc>", 
-    ppTitleSanitize = \(xs) -> xs, 
+    ppTitleSanitize = \xs -> xs, 
     ppOutput = hPutStrLn b
 }
 
 -- Key bindings
-myKeys :: [((ButtonMask, KeySym), (X ()))]
+myKeys :: [((ButtonMask, KeySym), X ())]
 myKeys = [
     ((mod4Mask, xK_w), spawn "firefox"), 
     ((mod4Mask, xK_d), spawn "rofi -show drun -font 'hack 10'"), 

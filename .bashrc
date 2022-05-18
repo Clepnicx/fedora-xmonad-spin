@@ -12,8 +12,6 @@ PS1='[\u@\h \W]\$ '
 ## EXPORTS                ##
 ############################
 
-export PATH="${PATH}:/home/clepnicx/.local/bin"             
-
 
 ###################################################################################################################
 ## COMMAND PROMPT                                                                                                ##
@@ -52,50 +50,6 @@ command_prompt () {
     local NOCOLOR="\033[0m"
 
 
-
-    # Show error exit code if there is one
-    if [[ $LAST_COMMAND != 0 ]]; then
-	  # PS1="\[${RED}\](\[${LIGHTRED}\]ERROR\[${RED}\])-(\[${LIGHTRED}\]Exit Code \[${WHITE}\]${LAST_COMMAND}\[${RED}\])-(\[${LIGHTRED}\]"
-	    PS1="\[${LIGHTGRAY}\](\[${LIGHTRED}\]ERROR\[${LIGHTGRAY}\])-(\[${RED}\]Exit Code \[${LIGHTRED}\]${LAST_COMMAND}\[${LIGHTGRAY}\])-(\[${RED}\]"
-	  if [[ $LAST_COMMAND == 1 ]]; then
-		  PS1+="General error"
-	  elif [ $LAST_COMMAND == 2 ]; then
-		  PS1+="Missing keyword, command, or permission problem"
-	  elif [ $LAST_COMMAND == 126 ]; then
-		  PS1+="Permission problem or command is not an executable"
-	  elif [ $LAST_COMMAND == 127 ]; then
-		  PS1+="Command not found"
-	  elif [ $LAST_COMMAND == 128 ]; then
-		  PS1+="Invalid argument to exit"
-	  elif [ $LAST_COMMAND == 129 ]; then
-		  PS1+="Fatal error signal 1"
-	  elif [ $LAST_COMMAND == 130 ]; then
-		  PS1+="Script terminated by Control-C"
-	  elif [ $LAST_COMMAND == 131 ]; then
-		  PS1+="Fatal error signal 3"
-	  elif [ $LAST_COMMAND == 132 ]; then
-		  PS1+="Fatal error signal 4"
-	  elif [ $LAST_COMMAND == 133 ]; then
-		  PS1+="Fatal error signal 5"
-	  elif [ $LAST_COMMAND == 134 ]; then
-		  PS1+="Fatal error signal 6"
-	  elif [ $LAST_COMMAND == 135 ]; then
-		  PS1+="Fatal error signal 7"
-	  elif [ $LAST_COMMAND == 136 ]; then
-		  PS1+="Fatal error signal 8"
-	  elif [ $LAST_COMMAND == 137 ]; then
-		  PS1+="Fatal error signal 9"
-	  elif [ $LAST_COMMAND -gt 255 ]; then
-		  PS1+="Exit status out of range"
-	  else
-		  PS1+="Unknown error code"
-	  fi
-	    PS1+="\[${LIGHTGRAY}\])\[${NOCOLOR}\]\n"
-    else
-	    PS1=""
-    fi
-
-
     ##
     ## DEFINE PROMPT VARIABLES
     ##
@@ -105,11 +59,11 @@ command_prompt () {
     local CPU="$(cpu)%"
     local JOBS="\j"
 
-    ## Display a happy smiley if the exitcode is 0, else display a shocked smiley
+    ## Display a colored symbol if the exitcode is 0, else display a red symbol
     if [[ $LAST_COMMAND != 0 ]]; then
-        local FACE="\[${RED}\]D:"
+        local SYMBOL="\[${RED}\]D:"
     else
-        local FACE="\[${SALMON}\](:"
+        local SYMBOL="\[${SALMON}\](:"
     fi
 
     ##
@@ -120,7 +74,7 @@ command_prompt () {
 
     ## Right side of the prompt
     # Status of the exitcode (Smiley) + Day + Time
-    local RIGHT_SIDE="\[${LIGHTGRAY}\](${FACE}\[${LIGHTGRAY}\])-(\[${BLUE}\]${DAY} ${DATE} \[${PURPLE}\]${TIME}\[${LIGHTGRAY}\])"
+    local RIGHT_SIDE="\[${LIGHTGRAY}\](${SYMBOL}\[${LIGHTGRAY}\])-(\[${BLUE}\]${DAY} ${DATE} \[${PURPLE}\]${TIME}\[${LIGHTGRAY}\])"
 
     # Save curser position, move curser to the right side, print Right_Side and restore curser position.
     PS1+="\[$(tput sc; printf "%*s" $(($COLUMNS+92)) "${RIGHT_SIDE}"; tput rc)\]"

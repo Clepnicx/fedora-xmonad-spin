@@ -28,6 +28,7 @@ mkdir ~/.config/
 # moves all config-files to the correct directorys
 cp ~/fedora-xmonad-spin/.bashrc ~/
 cp ~/fedora-xmonad-spin/.xmobarrc ~/
+cp ~/fedora-xmonad-spin/.profile ~/
 cp ~/fedora-xmonad-spin/wallpaper.png ~/Pictures/Wallpaper/
 cp ~/fedora-xmonad-spin/xmonad.hs ~/.xmonad/
 cp -r ~/fedora-xmonad-spin/kitty ~/.config/
